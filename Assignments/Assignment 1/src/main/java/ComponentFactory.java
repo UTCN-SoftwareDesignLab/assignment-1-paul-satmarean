@@ -2,6 +2,10 @@ import database.DBConnectionFactory;
 import repository.Cache;
 import repository.account.AccountRepository;
 import repository.account.AccountRepositoryMySQL;
+import repository.account.bill.BillRepository;
+import repository.account.bill.BillRepositoryMySQL;
+import repository.account.type.TypeRepository;
+import repository.account.type.TypeRepositoryMySQL;
 import repository.action.ActionRepository;
 import repository.action.ActionRepositoryCacheDecorator;
 import repository.action.ActionRepositoryMySQL;
@@ -13,7 +17,13 @@ import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
 import service.account.AccountService;
+import service.account.AccountServiceImpl;
+import service.action.ActionService;
+import service.action.ActionServiceImpl;
+import service.bill.BillService;
+import service.bill.BillServiceImpl;
 import service.client.ClientService;
+import service.client.ClientServiceImpl;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
 
@@ -26,8 +36,10 @@ public class ComponentFactory {
 
     //services
     private final AuthenticationService authenticationService;
-    //private final AccountService accountService;
-    //private final ClientService clientService;
+    private final AccountService accountService;
+    private final ClientService clientService;
+    private final ActionService actionService;
+    private final BillService billService;
 
     //repos
     private final UserRepository userRepository;
@@ -35,6 +47,8 @@ public class ComponentFactory {
     private final ClientRepository clientRepository;
     private final ActionRepository actionRepository;
     private final AccountRepository accountRepository;
+    private final TypeRepository typeRepository;
+    private final BillRepository billRepository;
 
 
     private static ComponentFactory instance;
@@ -56,9 +70,15 @@ public class ComponentFactory {
         this.clientRepository = new ClientRepositoryCacheDecorator(new ClientRepositoryMySQL(connection), new Cache());
         this.actionRepository = new ActionRepositoryCacheDecorator(new ActionRepositoryMySQL(connection), new Cache());
         this.accountRepository = new AccountRepositoryMySQL(connection);
+        this.typeRepository = new TypeRepositoryMySQL(connection);
+        this. billRepository = new BillRepositoryMySQL(connection);
 
         //service
         this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
+        this.actionService = new ActionServiceImpl(actionRepository, authenticationService);
+        this.accountService = new AccountServiceImpl(accountRepository, authenticationService, actionService, typeRepository, billRepository);
+        this.clientService = new ClientServiceImpl(authenticationService, actionService, clientRepository);
+        this.billService = new BillServiceImpl(billRepository);
 
     }
 

@@ -10,11 +10,13 @@ import java.util.List;
  * Created by Paul on 08/04/2018.
  */
 public interface BillRepository {
-    public List<Bill> findAll();
+    List<Bill> findAll();
 
-    public List<Bill> findByAccountId(Long id) throws EntityNotFoundException;
+    List<Bill> findByAccountId(Long id) throws EntityNotFoundException;
 
-    public boolean save(Bill bill);
+    boolean save(Bill bill);
 
-    public void deleteAll();
+    boolean delete(Bill bill);
+
+    void deleteAll();
 }

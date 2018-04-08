@@ -82,6 +82,19 @@ public class BillRepositoryMySQL implements BillRepository{
     }
 
     @Override
+    public boolean delete(Bill bill) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from bill where id ="+ bill.getId();
+            statement.executeUpdate(sql);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
     public void deleteAll() {
         try {
             Statement statement = connection.createStatement();

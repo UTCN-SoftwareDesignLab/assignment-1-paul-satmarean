@@ -8,6 +8,7 @@ import service.action.ActionService;
 import service.user.AuthenticationService;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by Paul on 01/04/2018.
@@ -24,6 +25,34 @@ public class ClientServiceImpl implements ClientService {
         this.clientRepository = clientRepository;
     }
 
+    @Override
+    public Notification<List<Client>> findAll(){
+        Notification<List<Client>> findNotification = new Notification<>();
+
+        List<Client> clients = clientRepository.findAll();
+
+        findNotification.setResult(clients);
+        if(clients.size() == 0){
+            findNotification.addError("There are no clients");
+
+        }
+
+        return findNotification;
+    }
+
+    @Override
+    public Notification<Boolean> save(Client client) {
+        Notification<Boolean> saveNotification = new Notification<>();
+        saveNotification.setResult(clientRepository.save(client));
+        return saveNotification;
+    }
+
+    @Override
+    public Notification<Boolean> update(Client client) {
+        Notification<Boolean> updateNotification = new Notification<>();
+        updateNotification.setResult(clientRepository.update(client));
+        return updateNotification;
+    }
 
     @Override
     public Notification<Client> findByName(String name) {

@@ -24,6 +24,8 @@ import service.bill.BillService;
 import service.bill.BillServiceImpl;
 import service.client.ClientService;
 import service.client.ClientServiceImpl;
+import service.type.TypeService;
+import service.type.TypeServiceImpl;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
 
@@ -40,6 +42,7 @@ public class ComponentFactory {
     private final ClientService clientService;
     private final ActionService actionService;
     private final BillService billService;
+    private final TypeService typeService;
 
     //repos
     private final UserRepository userRepository;
@@ -79,6 +82,7 @@ public class ComponentFactory {
         this.accountService = new AccountServiceImpl(accountRepository, authenticationService, actionService, typeRepository, billRepository);
         this.clientService = new ClientServiceImpl(authenticationService, actionService, clientRepository);
         this.billService = new BillServiceImpl(billRepository);
+        this.typeService = new TypeServiceImpl(typeRepository);
 
     }
 

@@ -81,6 +81,41 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
     }
 
     @Override
+    public Right findRightById(Long id){
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            String fetchRoleSql = "Select * from " + RIGHT + " where `id`=\'" + id + "\'";
+            ResultSet roleResultSet = statement.executeQuery(fetchRoleSql);
+            roleResultSet.next();
+            String roleTitle = roleResultSet.getString("right");
+            return new Right(id, roleTitle);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<Right> findRightsByRole(Long roleId) {
+        try {
+            List<Right> rights = new ArrayList<>();
+            Statement statement = connection.createStatement();
+            String fetchRoleSql = "Select * from " + ROLE_RIGHT + " where `role_id`=\'" + roleId + "\'";
+            ResultSet userRoleResultSet = statement.executeQuery(fetchRoleSql);
+            while (userRoleResultSet.next()) {
+                long rightId = userRoleResultSet.getLong("role_id");
+                rights.add(findRightById(rightId));
+            }
+            return rights;
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
+    @Override
     public Right findRightByTitle(String right) {
         Statement statement;
         try {

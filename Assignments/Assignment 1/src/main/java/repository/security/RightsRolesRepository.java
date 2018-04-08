@@ -23,6 +23,10 @@ public interface RightsRolesRepository {
 
     void addRolesToUser(User user, List<Role> roles);
 
+    List<Right> findRightsByRole(Long roleId);
+
+    public Right findRightById(Long id);
+
     List<Role> findRolesForUser(Long userId);
 
     void addRoleRight(Long roleId, Long rightId);

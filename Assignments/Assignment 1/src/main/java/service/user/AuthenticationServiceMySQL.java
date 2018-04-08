@@ -1,5 +1,7 @@
 package service.user;
 
+import database.Constants;
+import model.Right;
 import model.Role;
 import model.User;
 import model.builder.UserBuilder;
@@ -11,6 +13,7 @@ import repository.user.UserRepository;
 
 import java.security.MessageDigest;
 import java.util.Collections;
+import java.util.List;
 
 import static database.Constants.Roles.EMPLOYEE;
 
@@ -21,6 +24,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
+    private User currentUser;
 
     public AuthenticationServiceMySQL(UserRepository userRepository, RightsRolesRepository rightsRolesRepository) {
         this.userRepository = userRepository;
@@ -52,12 +56,35 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 
     @Override
     public Notification<User> login(String username, String password) throws AuthenticationException {
-        return userRepository.findByUsernameAndPassword(username, encodePassword(password));
+        Notification<User> notification = userRepository.findByUsernameAndPassword(username, encodePassword(password));
+        if(!notification.hasErrors()){
+            this.currentUser = notification.getResult();
+        }
+        return notification;
     }
 
     @Override
     public boolean logout(User user) {
+        this.currentUser = null;
         return false;
+    }
+
+    public boolean hasRight(User user, String action){
+        List<Role> roles = rightsRolesRepository.findRolesForUser(user.getId());
+        for(Role role: roles){
+            List<Right> rights = rightsRolesRepository.findRightsByRole(role.getId());
+            for(Right right:rights){
+                if(right.getRight().equals(action)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public User currentUser() {
+        return this.currentUser();
     }
 
     private String encodePassword(String password) {

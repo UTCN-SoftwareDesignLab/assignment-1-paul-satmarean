@@ -9,7 +9,6 @@ public class ClientBuilder {
     private Long pnc;
     private String address;
     private String email;
-    private Long account_id;
 
     public ClientBuilder setId(Long id) {
         this.id = id;
@@ -41,12 +40,7 @@ public class ClientBuilder {
         return this;
     }
 
-    public ClientBuilder setAccount_id(Long account_id) {
-        this.account_id = account_id;
-        return this;
-    }
-
     public Client createClient() {
-        return new Client(id, name, id_card_number, pnc, address, email, account_id);
+        return new Client(id, name, id_card_number, pnc, address, email);
     }
 }

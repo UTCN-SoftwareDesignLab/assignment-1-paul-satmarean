@@ -9,20 +9,24 @@ public class Account {
 
     private Long id;
 
-    private String type;
+    private Long typeId;
 
     private double ammount;
 
     private Date creation_date;
 
+    private Long clientId;
+
     public Account() {
     }
 
-    public Account(Long id, String type, double ammount, Date creation_date) {
+
+    public Account(Long id, Long typeId, double ammount, Date creation_date, Long clientId) {
         this.id = id;
-        this.type = type;
+        this.typeId = typeId;
         this.ammount = ammount;
         this.creation_date = creation_date;
+        this.clientId = clientId;
     }
 
 
@@ -34,12 +38,12 @@ public class Account {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public Long getTypeId() {
+        return typeId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 
     public double getAmmount() {
@@ -56,5 +60,13 @@ public class Account {
 
     public void setCreation_date(Date creation_date) {
         this.creation_date = creation_date;
+    }
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 }

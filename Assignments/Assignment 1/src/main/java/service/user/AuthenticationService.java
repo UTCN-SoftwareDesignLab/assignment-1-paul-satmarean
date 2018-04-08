@@ -13,6 +13,10 @@ public interface AuthenticationService {
 
     Notification<User> login(String username, String password) throws AuthenticationException;
 
+    User currentUser();
+
     boolean logout(User user);
+
+
 
 }

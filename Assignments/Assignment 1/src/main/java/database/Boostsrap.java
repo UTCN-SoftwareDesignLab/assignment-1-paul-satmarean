@@ -1,16 +1,24 @@
 package database;
 
+import model.Role;
+import model.Type;
+import model.User;
+import model.builder.UserBuilder;
+import repository.account.type.TypeRepository;
+import repository.account.type.TypeRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
+import repository.user.UserRepository;
+import repository.user.UserRepositoryMySQL;
+import sun.swing.BakedArrayList;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static database.Constants.Rights.RIGHTS;
+import static database.Constants.Roles.ADMINISTRATOR;
 import static database.Constants.Roles.ROLES;
 import static database.Constants.Schemas.SCHEMAS;
 import static database.Constants.getRolesRights;
@@ -21,6 +29,8 @@ import static database.Constants.getRolesRights;
 public class Boostsrap {
 
     private static RightsRolesRepository rightsRolesRepository;
+    private static TypeRepository typeRepository;
+    private static UserRepository userRepository;
 
     public static void main(String[] args) throws SQLException {
         dropAll();
@@ -38,9 +48,11 @@ public class Boostsrap {
             Statement statement = connection.createStatement();
 
             String[] dropStatements = {
+                    "DROP TABLE `account`;",
+                    "DROP TABLE `history`",
                     "DROP TABLE `bill`;",
                     "DROP TABLE `client`;",
-                    "DROP TABLE `account`;",
+                    "DROP TABLE `type`;",
                     "TRUNCATE `role_right`;",
                     "DROP TABLE `role_right`;",
                     "TRUNCATE `right`;",
@@ -90,10 +102,29 @@ public class Boostsrap {
             JDBConnectionWrapper connectionWrapper = new JDBConnectionWrapper(schema);
             rightsRolesRepository = new RightsRolesRepositoryMySQL(connectionWrapper.getConnection());
 
+            typeRepository = new TypeRepositoryMySQL(connectionWrapper.getConnection());
+
+            userRepository = new UserRepositoryMySQL(connectionWrapper.getConnection(), rightsRolesRepository);
+
+            bootstrapTypes();
             bootstrapRoles();
             bootstrapRights();
             bootstrapRoleRight();
             bootstrapUserRoles();
+
+            User admin = new UserBuilder()
+                    .setUsername("admin@gmail.com")
+                    .setRoles(Collections.singletonList(rightsRolesRepository.findRoleByTitle(ADMINISTRATOR)))
+                    .setPassword("")
+                    .build();
+            userRepository.save(admin);
+
+        }
+    }
+
+    private static void bootstrapTypes() throws SQLException{
+        for(String type: Constants.AccountTypes.TYPES){
+            typeRepository.save(new Type(null, type));
         }
     }
 

@@ -6,17 +6,18 @@ import java.util.Date;
 
 public class AccountBuilder {
     private Long id;
-    private String type;
+    private Long typeId;
     private double ammount;
     private Date creation_date;
+    private Long clientId;
 
     public AccountBuilder setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public AccountBuilder setType(String type) {
-        this.type = type;
+    public AccountBuilder setTypeId(Long typeId) {
+        this.typeId = typeId;
         return this;
     }
 
@@ -30,7 +31,12 @@ public class AccountBuilder {
         return this;
     }
 
+    public AccountBuilder setClientId(Long clientId) {
+        this.clientId = clientId;
+        return this;
+    }
+
     public Account createAccount() {
-        return new Account(id, type, ammount, creation_date);
+        return new Account(id, typeId, ammount, creation_date, clientId);
     }
 }

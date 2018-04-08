@@ -17,29 +17,21 @@ public class Client {
 
     private String email;
 
-    private Long account_id;
 
 
     public Client() {
     }
 
-    public Client(Long id, String name, Long id_card_number, Long pnc, String address, String email, Long account_id) {
+    public Client(Long id, String name, Long id_card_number, Long pnc, String address, String email) {
         this.id = id;
         this.name = name;
         this.id_card_number = id_card_number;
         this.pnc = pnc;
         this.address = address;
         this.email = email;
-        this.account_id = account_id;
     }
 
-    public Long getAccount_id() {
-        return account_id;
-    }
 
-    public void setAccount_id(Long account_id) {
-        this.account_id = account_id;
-    }
 
     public Long getId() {
         return id;

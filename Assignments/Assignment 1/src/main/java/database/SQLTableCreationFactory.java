@@ -9,30 +9,54 @@ public class SQLTableCreationFactory {
 
     public String getCreateSQLForTable(String table) {
         switch (table) {
-            case ACCOUNT:
-                return "CREATE TABLE IF NOT EXISTS account (" +
-                        "  `id` INT NOT NULL AUTO_INCREMENT," +
-                        "  `type` VARCHAR(45) NULL," +
-                        "  `ammount` DOUBLE NULL," +
-                        "  `created` DATETIME NULL," +
-                        "  PRIMARY KEY (`id`));";
-
-            case CLIENT:
-                return "CREATE TABLE IF NOT EXISTS client (\n" +
+            case TYPE:
+                return "CREATE TABLE `type` (\n" +
+                    "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                    "  `name` VARCHAR(45) NULL,\n" +
+                    "  PRIMARY KEY (`id`));\n";
+            case HISTORY:
+                return "CREATE TABLE `history` (\n" +
                         "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                        "  `name` VARCHAR(45) NULL,\n" +
-                        "  `card_number` INT NULL,\n" +
-                        "  `pnc` INT NULL,\n" +
-                        "  `address` VARCHAR(250) NULL,\n" +
-                        "  `email` VARCHAR(45) NULL,\n" +
-                        "  `accountId` INT NULL,\n" +
+                        "  `userId` INT NULL,\n" +
+                        "  `action` VARCHAR(250) NULL,\n" +
+                        "  `date` DATETIME NULL,\n" +
                         "  PRIMARY KEY (`id`),\n" +
-                        "  INDEX `client_account_idx` (`accountId` ASC),\n" +
-                        "  CONSTRAINT `client_account`\n" +
-                        "    FOREIGN KEY (`accountId`)\n" +
-                        "    REFERENCES account (`id`)\n" +
+                        "  INDEX `user_action_idx` (`userId` ASC),\n" +
+                        "  CONSTRAINT `user_action`\n" +
+                        "    FOREIGN KEY (`userId`)\n" +
+                        "    REFERENCES `user` (`id`)\n" +
                         "    ON DELETE NO ACTION\n" +
                         "    ON UPDATE NO ACTION);\n";
+            case ACCOUNT:
+                return "CREATE TABLE `account` (\n" +
+                        "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                        "  `typeId` INT NULL,\n" +
+                        "  `ammount` DOUBLE NULL,\n" +
+                        "  `created` DATETIME NULL,\n" +
+                        "  `clientId` INT NULL,\n" +
+                        "  PRIMARY KEY (`id`),\n" +
+                        "  INDEX `account_type_idx` (`typeId` ASC),\n" +
+                        "  INDEX `account_client_idx` (`clientId` ASC),\n" +
+                        "  CONSTRAINT `account_type`\n" +
+                        "    FOREIGN KEY (`typeId`)\n" +
+                        "    REFERENCES `type` (`id`)\n" +
+                        "    ON DELETE NO ACTION\n" +
+                        "    ON UPDATE NO ACTION,\n" +
+                        "  CONSTRAINT `account_client`\n" +
+                        "    FOREIGN KEY (`clientId`)\n" +
+                        "    REFERENCES `client` (`id`)\n" +
+                        "    ON DELETE NO ACTION\n" +
+                        "    ON UPDATE NO ACTION);\n";
+
+            case CLIENT:
+                return "CREATE TABLE `client` (\n" +
+                        "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                        "  `name` VARCHAR(45) NULL,\n" +
+                        "  `card_number` INT(13) NULL,\n" +
+                        "  `pnc` INT(13) NULL,\n" +
+                        "  `address` VARCHAR(250) NULL,\n" +
+                        "  `email` VARCHAR(45) NULL,\n" +
+                        "  PRIMARY KEY (`id`));\n";
             case BILL:
                 return "CREATE TABLE IF NOT EXISTS bill(\n" +
                         "  `id` INT NOT NULL AUTO_INCREMENT,\n" +

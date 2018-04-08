@@ -18,13 +18,15 @@ public class Constants {
     }
 
     public static class AccountTypes {
-        public static final String NORMAL = "normal";
-        public static final String SAVINGS = "savings";
-        public static final String[] TYPES={NORMAL, SAVINGS};
+        public static final String DEBIT = "debit";
+        public static final String CREDIT = "credit";
+        public static final String[] TYPES={DEBIT, CREDIT};
     }
 
 
     public static class Tables {
+        public static final String TYPE = "type";
+        public static final String HISTORY = "history";
         public static final String CLIENT = "client";
         public static final String ACCOUNT= "account";
         public static final String BILL = "bill";
@@ -34,7 +36,7 @@ public class Constants {
         public static final String ROLE_RIGHT = "role_right";
         public static final String USER_ROLE = "user_role";
 
-        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE, ACCOUNT, CLIENT, BILL};
+        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE,TYPE, CLIENT,  ACCOUNT, BILL, HISTORY};
     }
 
     public static class Roles {

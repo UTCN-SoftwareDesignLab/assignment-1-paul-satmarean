@@ -30,12 +30,12 @@ public class AccountValidator {
             }
         }
         if(!found){
-            errors.add("Account type invalid!");
+            errors.add("account type invalid!");
         }
     }
 
     public boolean validate(){
-        validateType(this.account.getType());
+        //validateType(this.account.get());
         return errors.isEmpty();
     }
 

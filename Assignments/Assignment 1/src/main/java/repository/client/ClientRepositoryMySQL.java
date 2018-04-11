@@ -122,6 +122,17 @@ public class ClientRepositoryMySQL implements ClientRepository {
     }
 
     @Override
+    public void delete(Long id) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from client where id="+id;
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void removeAll() {
         try {
             Statement statement = connection.createStatement();

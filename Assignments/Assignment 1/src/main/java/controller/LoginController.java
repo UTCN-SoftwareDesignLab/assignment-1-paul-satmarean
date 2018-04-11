@@ -1,10 +1,16 @@
 package controller;
 
+import controller.user.AccountController;
+import controller.user.AddController;
+import controller.user.EditController;
+import controller.user.UserController;
 import model.User;
 import model.validation.Notification;
 import repository.user.AuthenticationException;
 import service.user.AuthenticationService;
 import view.LoginView;
+import view.user.EditClientView;
+import view.user.UserView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,11 +21,16 @@ import java.awt.event.ActionListener;
  */
 public class LoginController {
     private final LoginView loginView;
+
     private final AuthenticationService authenticationService;
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService) {
+    private final UserController userController;
+
+    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserController userController) {
         this.loginView = loginView;
         this.authenticationService = authenticationService;
+        this.userController = userController;
+
         loginView.setLoginButtonListener(new LoginButtonListener());
         loginView.setRegisterButtonListener(new RegisterButtonListener());
     }
@@ -43,6 +54,7 @@ public class LoginController {
                     JOptionPane.showMessageDialog(loginView.getContentPane(), loginNotification.getFormattedErrors());
                 } else {
                     JOptionPane.showMessageDialog(loginView.getContentPane(), "Login successful!");
+                    userController.setFormVisible();
                 }
             }
         }

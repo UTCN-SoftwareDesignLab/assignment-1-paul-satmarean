@@ -28,8 +28,27 @@ public class EditController {
         this.client = client;
         editClientView.setSubmitActionListener(new SubmitActionListener());
         editClientView.setTitle("Edit client");
-        editClientView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        editClientView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        editClientView.setVisible(false);
+    }
+
+    public void populateView(){
+        if(client!=null){
+            editClientView.setName(client.getName());
+            editClientView.setAddress(client.getAddress());
+            editClientView.setCardNumber(client.getId_card_number());
+            editClientView.setPnc(client.getPnc());
+            editClientView.setEmail(client.getEmail());
+        }
+    }
+
+
+    public void setFormVisible(){
         editClientView.setVisible(true);
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     private Client getClientFromInput(){

@@ -97,4 +97,44 @@ public class ComponentFactory {
     public RightsRolesRepository getRightsRolesRepository() {
         return rightsRolesRepository;
     }
+
+    public AccountService getAccountService() {
+        return accountService;
+    }
+
+    public ClientService getClientService() {
+        return clientService;
+    }
+
+    public ActionService getActionService() {
+        return actionService;
+    }
+
+    public BillService getBillService() {
+        return billService;
+    }
+
+    public TypeService getTypeService() {
+        return typeService;
+    }
+
+    public ClientRepository getClientRepository() {
+        return clientRepository;
+    }
+
+    public ActionRepository getActionRepository() {
+        return actionRepository;
+    }
+
+    public AccountRepository getAccountRepository() {
+        return accountRepository;
+    }
+
+    public TypeRepository getTypeRepository() {
+        return typeRepository;
+    }
+
+    public BillRepository getBillRepository() {
+        return billRepository;
+    }
 }

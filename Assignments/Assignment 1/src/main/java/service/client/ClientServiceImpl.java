@@ -70,6 +70,15 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Notification<Boolean> delete(Client client) {
+        Notification<Boolean> deleteNotification = new Notification<>();
+
+        clientRepository.delete(client.getId());
+        deleteNotification.setResult(true);
+        return deleteNotification
+    }
+
+    @Override
     public Notification<Client> findByPnc(Long pnc) {
         Notification<Client> findNotification = new Notification<>();
         List<Client> clients = clientRepository.findAll();

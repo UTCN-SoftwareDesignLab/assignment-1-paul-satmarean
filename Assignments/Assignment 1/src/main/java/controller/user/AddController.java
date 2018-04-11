@@ -25,7 +25,11 @@ public class AddController {
         this.editClientView = editClientView;
         editClientView.setSubmitActionListener(new SubmitActionListener());
         editClientView.setTitle("Edit client");
-        editClientView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        editClientView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        editClientView.setVisible(false);
+    }
+
+    public void setFormVisible(){
         editClientView.setVisible(true);
     }
 

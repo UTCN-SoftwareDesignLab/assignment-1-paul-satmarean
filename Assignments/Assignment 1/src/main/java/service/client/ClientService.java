@@ -18,5 +18,7 @@ public interface ClientService {
 
     Notification<Boolean> update(Client client);
 
+    Notification<Boolean> delete(Client client);
+
     Notification<Client> findByPnc(Long pnc);
 }

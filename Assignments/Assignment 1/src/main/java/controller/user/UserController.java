@@ -6,6 +6,7 @@ import service.account.AccountService;
 import service.bill.BillService;
 import service.client.ClientService;
 import service.user.AuthenticationService;
+import view.user.EditClientView;
 import view.user.UserView;
 
 import javax.swing.*;
@@ -23,15 +24,22 @@ public class UserController {
     private BillService billService;
     private AccountService accountService;
 
+    private EditController editController;
+    private AddController addController;
+    private AccountController accountController;
 
     private UserView userView;
 
-    public UserController(AuthenticationService authenticationService, ClientService clientService, BillService billService, AccountService accountService, UserView userView) {
+    public UserController(AuthenticationService authenticationService, ClientService clientService, BillService billService, AccountService accountService, EditController editController, AddController addController, AccountController accountController, UserView userView) {
         this.authenticationService = authenticationService;
         this.clientService = clientService;
         this.billService = billService;
         this.accountService = accountService;
+        this.editController = editController;
+        this.addController = addController;
+        this.accountController = accountController;
         this.userView = userView;
+
 
         userView.setTitle("Clients");
         userView.setAddActionListener(new AddActionListener());
@@ -39,6 +47,10 @@ public class UserController {
         userView.setEditActionListener(new EditActionListener());
         userView.setDeleteActionListener(new DeleteActionListener());
         updateTable();
+        userView.setVisible(false);
+    }
+
+    public void setFormVisible(){
         userView.setVisible(true);
     }
 
@@ -80,25 +92,42 @@ public class UserController {
                 return;
             }
             Client client = getClientNotification.getResult();
-            // TODO: 08/04/2018
+            accountController.setClient(client);
+            accountController.setFormVisible();
         }
     }
     private class AddActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            addController.setFormVisible();
         }
     }
     private class EditActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            String name = userView.getSelectedClientName();
+            Notification<Client> getClientNotification = clientService.findByName(name);
+            if(getClientNotification.hasErrors()){
+                JOptionPane.showMessageDialog(userView.getContentPane(), getClientNotification.getFormattedErrors());
+                return;
+            }
+            Client client = getClientNotification.getResult();
+            editController.setClient(client);
+            editController.populateView();
+            editController.setFormVisible();
         }
     }
     private class DeleteActionListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            String name = userView.getSelectedClientName();
+            Notification<Client> getClientNotification = clientService.findByName(name);
+            if(getClientNotification.hasErrors()){
+                JOptionPane.showMessageDialog(userView.getContentPane(), getClientNotification.getFormattedErrors());
+                return;
+            }
+            Client client = getClientNotification.getResult();
+            clientService.delete(client);
         }
     }
 

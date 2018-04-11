@@ -20,6 +20,8 @@ public interface ClientRepository {
 
     boolean update(Client client);
 
+    void delete(Long id);
+
     void removeAll();
 
 }

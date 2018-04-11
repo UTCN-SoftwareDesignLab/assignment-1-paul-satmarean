@@ -27,20 +27,20 @@ public class AccountController {
 
     private Client client;
 
-    public AccountController(AccountService accountService, ClientService clientService, TypeService typeService, UserView view, Client client) {
+    public AccountController(AccountService accountService, ClientService clientService,
+                             TypeService typeService, UserView view, Client client) {
         this.accountService = accountService;
         this.clientService = clientService;
         this.typeService = typeService;
         this.view = view;
         this.client = client;
 
-        view.setTitle("Clients");
+
         view.setAddActionListener(new AddActionListener());
         view.setViewDetailsActionListener(new ViewDetailsActionListener());
         view.setEditActionListener(new EditActionListener());
         view.setDeleteActionListener(new DeleteActionListener());
-        view();
-        view.setVisible(true);
+        view.setVisible(false);
 
 
 
@@ -79,14 +79,20 @@ public class AccountController {
 
             view.setUserData(colums, data);
         }
+    }
 
+    public void setFormVisible(){
+        view.setVisible(true);
+    }
 
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     private class ViewDetailsActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+
             // TODO: 08/04/2018
         }
     }

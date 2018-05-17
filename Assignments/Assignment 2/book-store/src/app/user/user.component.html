@@ -1,0 +1,40 @@
+<div class="container"  style="opacity:0.97;">
+    <form class="form-inline" (ngSubmit)="search()">
+        <input [(ngModel)]="this.searchTitle"   type="text" name="srcTitle" class="form-control mb-2 mr-sm-2" id="titleSearch" placeholder="Title">
+        
+        <div class="input-group mb-2 mr-sm-2">
+            <input [(ngModel)]="this.searchAuthor" type="text" name="srcAuthor" class="form-control" id="authorSearch" placeholder="Author">
+        
+        </div>
+        <div class="input-group mb-2 mr-sm-2">
+            <input [(ngModel)]="this.searchGenre" type="text" name="srcGenre" class="form-control" id="genreSearch" placeholder="Genre">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    </form>
+    <div class="table-responsive">
+        <table class="table  table-hover table-inverse">
+            <thead>
+                <!-- <th>Id</th> -->
+                <th>Title</th>
+                <!-- <th>Year</th> -->
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of this.books">
+                    <td>{{book.title}}</td>
+                    <td>{{book.author.name}}</td>
+                    <td>{{book.genre.name}}</td>
+                    <td>{{book.price}}</td>
+                    <td>{{book.quantity}}</td>                    
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" routerLink="/book/{{book.idbook}}">Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>

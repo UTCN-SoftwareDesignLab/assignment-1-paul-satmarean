@@ -1,0 +1,15 @@
+<div class="container">
+    <form class="form" (ngSubmit)="addBook()">
+      <input type="text" class="input-lg" placeholder="Title" [(ngModel)]="this.title" name="title">      
+      <input type="text" class="input-lg" placeholder="Price" [(ngModel)]="this.price" name="price">
+      <select class="form-control" id="sel1" [(ngModel)]="this.idauthor" name="selectAuthor" > 
+        <option *ngFor="let author of this.authors"[ngValue]="author.idauthor" >{{author.name}}</option>
+      </select>
+      <select class="form-control" id="sel2" [(ngModel)]="this.idgenre" name="selectGenre" >
+        <option *ngFor="let genre of this.genres"[ngValue]="genre.idgenre" >{{genre.name}}</option>
+      </select>
+      <input type="text" class="input-lg" placeholder="Stock" [(ngModel)]="this.quantity" name="stock">         
+      <button type="submit">Add Book</button>
+    </form>
+    <br>
+  </div>

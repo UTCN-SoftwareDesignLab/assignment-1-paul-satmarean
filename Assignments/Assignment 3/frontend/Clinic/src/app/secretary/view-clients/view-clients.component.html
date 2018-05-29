@@ -1,0 +1,32 @@
+<div class="container"  style="opacity:0.97;">
+    <div class="table-responsive">
+        <table class="table  table-hover table-inverse">
+            <thead>
+                <th>Name</th>
+                <th>ID Card No.</th>
+                <th>PNC</th>
+                <th>Birth date</th>
+                <th>Address</th>
+                <!-- <th></th> -->
+                <th></th>
+            </thead>
+            <tbody>
+                    <!-- hh:mm:ss' -->
+                <tr *ngFor="let client of this.clients">
+                    <td>{{client.name}}</td>
+                    <td>{{client.id_card_no}}</td>
+                    <td>{{client.pnc}}</td>
+                    <td>{{client.birth_date | date: 'yyyy-MM-dd'}}</td>      
+                    <td>{{client.address}}</td>                   
+                    <!-- <td>
+                        <button type="button" class="btn btn-sm btn-danger" routerLink="/user/{{user.iduser}}">Details</button>
+                    </td> -->
+                    <td>
+                        <button type="button" class="btn btn-sm btn-warning" (click)="this.delete(client.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <button type="button" class="btn btn-sm btn-warning" (click)="this.getReport()">Report</button> -->
+  </div>

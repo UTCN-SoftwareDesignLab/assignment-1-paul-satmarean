@@ -1,4 +1,4 @@
-package clinic.service;
+package clinic.service.user;
 
 import clinic.entity.User;
 import clinic.repository.UserRepository;
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(User user) {
-        this.userRepository.delete(user);
+    public void delete(Long id) {
+        this.userRepository.delete(id);
     }
 }

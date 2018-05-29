@@ -2,6 +2,7 @@ package clinic.entity;
 
 import javax.annotation.Generated;
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Paul on 17/05/2018.
@@ -31,6 +32,11 @@ public class User {
     @JoinColumn(name="role_id")
     private Role role;
 
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="user")
+////    @OneToMany(fetch= FetchType.EAGER, mappedBy = "user")
+//    //@JoinColumn(name="user_id")
+//    private List<Notification> notifications;
+
     public User(Long id, String name, String username, String password, String email, Role role) {
         this.id = id;
         this.name = name;
@@ -43,6 +49,14 @@ public class User {
     public User(){
 
     }
+
+//    public List<Notification> getNotifications() {
+//        return notifications;
+//    }
+//
+//    public void setNotifications(List<Notification> notifications) {
+//        this.notifications = notifications;
+//    }
 
     public Long getId() {
         return id;

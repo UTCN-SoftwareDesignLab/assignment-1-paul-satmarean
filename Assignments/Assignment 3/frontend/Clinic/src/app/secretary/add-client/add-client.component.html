@@ -1,0 +1,18 @@
+<div class="container">
+    <form class="form" (ngSubmit)="addClient()">
+      <input type="text" class="input-lg" placeholder="Name" [(ngModel)]="this.name" name="name">      
+      <input type="text" class="input-lg" placeholder="ID Card No." [(ngModel)]="this.id_card_no" name="card_no">      
+      <input type="text" class="input-lg" placeholder="PNC" [(ngModel)]="this.pnc" name="pnc">    
+      <input type="datetime-local" class="input-lg" placeholder="Date" [(ngModel)]="this.birth_date" name="birth_date">
+      <input type="text" class="input-lg" placeholder="Address" [(ngModel)]="this.address" name="pnc">    
+      
+     
+      <button type="submit">Add User</button>
+    </form>
+  
+    <br>
+  
+    <div *ngIf="this.message" class="container bg-inverse" style="opacity:0.8">
+      <h2 style="color:crimson"> <i class="fa fa-times-circle"></i> Login failed. {{this.message}} </h2>
+    </div>
+  </div>

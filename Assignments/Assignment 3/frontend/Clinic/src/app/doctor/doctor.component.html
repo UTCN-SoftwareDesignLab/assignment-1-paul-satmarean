@@ -1,0 +1,24 @@
+<div class="container"  style="opacity:0.97;">
+    <div class="table-responsive">
+        <table class="table  table-hover table-inverse">
+            <thead>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Details</th>
+                <!-- <th></th> -->
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let consult of this.consults">
+                    <td>{{consult.date | date: 'yyyy-MM-dd hh:mm:ss'}}</td>
+                    <td>{{consult.client.name}}</td>    
+                    <td>{{consult.details}}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-warning" routerLink="/doctor/{{consult.id}}">Edit</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <button type="button" class="btn btn-sm btn-warning" (click)="this.getReport()">Report</button> -->
+  </div>

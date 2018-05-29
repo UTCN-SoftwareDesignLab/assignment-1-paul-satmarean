@@ -14,6 +14,9 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="name")
+    private String name;
+
     @Column(name="id_card_number")
     private String id_card_no;
 
@@ -35,6 +38,14 @@ public class Client {
     }
 
     public Client() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {

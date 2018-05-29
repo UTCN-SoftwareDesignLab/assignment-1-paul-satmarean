@@ -1,7 +1,7 @@
 package clinic.service.security;
 
 import clinic.entity.User;
-import clinic.service.UserService;
+import clinic.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.GrantedAuthority;

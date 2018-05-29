@@ -1,4 +1,4 @@
-package clinic.service;
+package clinic.service.user;
 
 import clinic.entity.User;
 import org.springframework.stereotype.Service;
@@ -19,5 +19,5 @@ public interface UserService {
 
     User save(User user);
 
-    void delete(User user);
+    void delete(Long id);
 }
